@@ -67,7 +67,7 @@ int main(int argc, char** argv){
         for(i = 1; i < N; i++){
             for(j = 1; j < N; j++){
 
-                T[i][j] = (A[i][j] < mean(A[i-1][j-1], A[i-1][j], A[i-1][j+1],
+                T[i][j] = (A[i][j] > mean(A[i-1][j-1], A[i-1][j], A[i-1][j+1],
                                           A[i][j-1],   A[i][j],   A[i][j+1],
                                           A[i+1][j-1], A[i+1][j], A[i+1][j+1])) ? 
                                   0

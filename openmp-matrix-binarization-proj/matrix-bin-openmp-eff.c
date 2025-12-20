@@ -66,9 +66,9 @@ int main(int argc, char** argv){
         next_row = (i+1)*(N+2);
         for(j = 1; j < N; j++){
 
-            T[i*N+j] = (9*A[my_row+j] <= A[previous_row+j-1]+ A[previous_row+j]+ A[previous_row+j+1]+
-                                         A[my_row+j-1]+       A[my_row+j]+       A[my_row+j+1]+
-                                         A[next_row+j-1]+     A[next_row+j]+     A[next_row+j+1]);
+            T[i*N+j] = (9*A[my_row+j] > A[previous_row+j-1]+ A[previous_row+j]+ A[previous_row+j+1]+
+                                        A[my_row+j-1]+       A[my_row+j]+       A[my_row+j+1]+
+                                        A[next_row+j-1]+     A[next_row+j]+     A[next_row+j+1]);
         }
     }
     end=omp_get_wtime();
@@ -83,9 +83,9 @@ int main(int argc, char** argv){
             my_row = i*(N+2);
             next_row = (i+1)*(N+2);
             for(j = 1; j < N; j++){
-                T[i*N+j] = (9*A[my_row+j] <= A[previous_row+j-1]+ A[previous_row+j]+ A[previous_row+j+1]+
-                                             A[my_row+j-1]+       A[my_row+j]+       A[my_row+j+1]+
-                                             A[next_row+j-1]+     A[next_row+j]+     A[next_row+j+1]);
+                T[i*N+j] = (9*A[my_row+j] > A[previous_row+j-1]+ A[previous_row+j]+ A[previous_row+j+1]+
+                                            A[my_row+j-1]+       A[my_row+j]+       A[my_row+j+1]+
+                                            A[next_row+j-1]+     A[next_row+j]+     A[next_row+j+1]);
             }
         }
     }
@@ -101,9 +101,9 @@ int main(int argc, char** argv){
             my_row = i*(N+2);
             next_row = (i+1)*(N+2);
             for(j = 1; j < N; j++){
-                T[i*N+j] = (9*A[my_row+j] <= A[previous_row+j-1]+ A[previous_row+j]+ A[previous_row+j+1]+
-                                             A[my_row+j-1]+       A[my_row+j]+       A[my_row+j+1]+
-                                             A[next_row+j-1]+     A[next_row+j]+     A[next_row+j+1]);
+                T[i*N+j] = (9*A[my_row+j] > A[previous_row+j-1]+ A[previous_row+j]+ A[previous_row+j+1]+
+                                            A[my_row+j-1]+       A[my_row+j]+       A[my_row+j+1]+
+                                            A[next_row+j-1]+     A[next_row+j]+     A[next_row+j+1]);
             }
         }
     }
