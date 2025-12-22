@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+typedef unsigned char uint8_t;
+
 static inline void expand_matrix(int* M, int dim){
     int S = dim + 2;
     for (int i = 1; i <= dim; i++) {
@@ -20,6 +22,7 @@ static inline void expand_matrix(int* M, int dim){
 int main(int argc, char** argv){
     if(argc != 3){
         fprintf(stderr,"Usage error.\nCorrect usage: %s NUM_OF_THREADS MATRIX_DIM\nNUM_OF_THREADS represents the number of threads computing the final matrix.\nMATRIX_DIM represents the number of rows (or cols) of the (MATRIX_DIM, MATRIX_DIM) matrixes (must be >=2000).", argv[0]);
+        exit(EXIT_FAILURE);
     }
     int i, j, previous_row, my_row, next_row;
     double start, end;
@@ -27,9 +30,11 @@ int main(int argc, char** argv){
     int N = atoi(argv[2]);
     if(N < 2000){
         fprintf(stderr,"Usage error.\nCorrect usage: %s NUM_OF_THREADS MATRIX_DIM\nNUM_OF_THREADS represents the number of threads computing the final matrix.\nMATRIX_DIM represents the number of rows (or cols) of the (MATRIX_DIM, MATRIX_DIM) matrixes (must be >=2000).", argv[0]);
+        exit(EXIT_FAILURE);
     }
+    start = omp_get_wtime();    //inizio misurazione per tempo di esecuzione
     int* A = (int*) malloc(sizeof(int)*(N+2)*(N+2));    //matrici allocate come array per avere la maggior efficienza possibile
-    int* T = (int*) malloc(sizeof(int)*N*N);
+    uint8_t* T = (uint8_t*) malloc(sizeof(uint8_t)*N*N); // T di uint8_t per meno memoria tanto contiene solo 0 e 1
     srand((unsigned int)time(NULL));
     for(i = 1; i < N+1; i++){
         for(j = 1; j < N+1; j++){
@@ -37,7 +42,6 @@ int main(int argc, char** argv){
         }
     }
     expand_matrix(A, N);
-    start = omp_get_wtime();    //inizio misurazione per tempo di esecuzione
     #pragma omp parallel num_threads(threads_num) shared(A,T,N) private(i,j,previous_row,my_row,next_row)
     {
         #pragma omp for schedule(static)
@@ -53,7 +57,7 @@ int main(int argc, char** argv){
         }
     }
     end = omp_get_wtime();      //fine misurazione per tempo di esecuzione
-    printf("OPENMP execution time static scheduling: %lf secondi\n", end-start);
+    printf("OPENMP tempo di esecuzione totale: %lf secondi\n", end-start);
     free(A);
     free(T);
 }
