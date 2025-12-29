@@ -131,7 +131,8 @@ int main(int argc, char** argv){
     MPI_Barrier(MPI_COMM_WORLD);
     end = MPI_Wtime(); //fine misurazione tempo totale
     if (my_rank == 0){
-        printf("Tempo di esecuzione totale= %fs\n", end-start);
+        //pattern di output threads_num N time_in_seconds
+        printf("%d;%d;%f;\n", size, N, end-start);
         free(rowsnumber_per_proc_scatter);
         free(offset_per_proc_scatter);
         free(rowsnumber_per_proc_gather);

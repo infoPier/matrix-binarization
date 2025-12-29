@@ -57,7 +57,8 @@ int main(int argc, char** argv){
         }
     }
     end = omp_get_wtime();      //fine misurazione per tempo di esecuzione
-    printf("OPENMP tempo di esecuzione totale: %lf secondi\n", end-start);
+    //pattern di output threads_num N time_in_seconds
+    printf("%d;%d;%lf;\n", threads_num, N, end-start);
     free(A);
     free(T);
 }

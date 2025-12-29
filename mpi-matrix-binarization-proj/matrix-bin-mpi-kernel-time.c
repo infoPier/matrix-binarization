@@ -128,7 +128,8 @@ int main(int argc, char** argv){
     end = MPI_Wtime(); //fine misurazione tempo
     MPI_Gatherv(local_T, local_rows * N, MPI_UINT8_T, T, rowsnumber_per_proc_gather, offset_per_proc_gather, MPI_UINT8_T, 0, MPI_COMM_WORLD);
     if (my_rank == 0){
-        printf("Tempo di esecuzione solo kernel = %fs\n", end-start);
+        //pattern di output threads_num N time_in_seconds
+        printf("%d;%d;%f;\n", size, N, end-start);
         free(rowsnumber_per_proc_scatter);
         free(offset_per_proc_scatter);
         free(rowsnumber_per_proc_gather);
